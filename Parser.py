@@ -22,25 +22,10 @@ class Parser:
                 ret += self.right.__repr__(level + 1)
             return ret
 
-        def show(self, level=0):
-            print('\t' * level + str(self.value))
-            if isinstance(self.left, Parser.AST):
-                self.left.show(level + 1)
-            else:
-                print('\t' * level + str(self.left))
-
-            if isinstance(self.right, Parser.AST):
-                self.right.show(level + 1)
-            else:
-                print('\t' * level + str(self.right))
-
     def __init__(self, tokens):
         self.tokens = tokens
         self.pos = 0
         self.ast = None
-
-    def __repr__(self):
-        pass
 
     def consume(self):
         token = None
