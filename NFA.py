@@ -16,6 +16,13 @@ class NFA:
         self.final = final
         self.trans_tbl = self.create_tbl(self.size)
 
+    def __repr__(self):
+        return 'size: {0} start: {1}, ' \
+               'final: {2}, table: {3}'.format(self.size,
+                                               self.start,
+                                               self.final,
+                                               self.trans_tbl)
+
     def add_trans(self, fm, to, ic):
         self.trans_tbl[fm][to] = ic
 

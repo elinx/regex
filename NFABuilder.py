@@ -5,6 +5,7 @@ class NFABuilder:
     def basic_nfa(ic):
         nfa = NFA(2, 0, 1)
         nfa.add_trans(0, 1, ic)
+        return nfa
 
     def alter_nfa(nfa1, nfa2):
         """nfa1 | nfa2"""
