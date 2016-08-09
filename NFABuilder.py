@@ -1,4 +1,6 @@
 from NFA import *
+from Scanner import *
+
 
 class NFABuilder:
 
@@ -18,3 +20,23 @@ class NFABuilder:
     def repeat_nfa(nfa1):
         """nfa1*"""
         return ~nfa1
+
+    def ast_to_nfa(ast):
+        node_type = ast.value[1]
+        node_value = ast.value[0]
+        node_left = ast.left
+        node_right = ast.right
+
+        if node_type == Scanner.CHAR:
+            return NFABuilder.basic_nfa(node_value)
+        elif node_type == Scanner.CAT:
+            return NFABuilder.concat_nfa(NFABuilder.ast_to_nfa(node_left),
+                                         NFABuilder.ast_to_nfa(node_right))
+        elif node_type == Scanner.STAR:
+            return NFABuilder.repeat_nfa(NFABuilder.ast_to_nfa(node_left))
+        elif node_type == Scanner.ALTER:
+            return NFABuilder.alter_nfa(NFABuilder.ast_to_nfa(node_left),
+                                        NFABuilder.ast_to_nfa(node_right))
+        else:
+            raise ValueError('unknown ast node type')
+

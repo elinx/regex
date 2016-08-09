@@ -110,27 +110,8 @@ class Parser:
         self.ast = self.regex()
         # print(self.ast)
 
-    def to_nfa(self, ast):
-        node_type = ast.value[1]
-        node_value = ast.value[0]
-        node_left = ast.left
-        node_right = ast.right
-
-        if node_type == Scanner.CHAR:
-            return NFABuilder.basic_nfa(node_value)
-        elif node_type == Scanner.CAT:
-            return NFABuilder.concat_nfa(self.to_nfa(node_left),
-                                         self.to_nfa(node_right))
-        elif node_type == Scanner.STAR:
-            return NFABuilder.repeat_nfa(self.to_nfa(node_left))
-        elif node_type == Scanner.ALTER:
-            return NFABuilder.alter_nfa(self.to_nfa(node_left),
-                                        self.to_nfa(node_right))
-        else:
-            raise ValueError('unknown node type')
-
     def exec(self):
-        nfa = self.to_nfa(self.ast)
+        nfa = NFABuilder.ast_to_nfa(self.ast)
         print(nfa)
 
 if __name__ == '__main__':

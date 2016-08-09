@@ -15,4 +15,4 @@ specific regex
 
 **_NFABuilder.py_**: A builder wrapper for nfa
 
-**_test_**: a bunch of unittest files
+**_test_**: A bunch of unittest files
