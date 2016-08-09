@@ -1,7 +1,7 @@
-# regex
+# Introduction
 A regex parser using FSM(Finite State Machine)
 
-## project structure
+## Project Structure
 **_Scanner.py_**: Convert regular expression into tokens stream
 
 **_Parser.py_**: Parse tokens stream, generate a abstract syntax tree for 
