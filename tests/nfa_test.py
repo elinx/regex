@@ -91,14 +91,12 @@ class TestNFAMethod(unittest.TestCase):
         new_nfa = nfa1 & nfa2
 
         self.assertEqual(new_nfa.start, 0)
-        self.assertEqual(new_nfa.final, 4)
-        self.assertEqual(new_nfa.size, 5)
+        self.assertEqual(new_nfa.final, 2)
+        self.assertEqual(new_nfa.size, 3)
 
-        res = [[0, -1,   0,   0,   0],
-               [0,  0, 'a',   0,   0],
-               [0,  0,   0, 'b',   0],
-               [0,  0,   0,   0,  -1],
-               [0,  0,   0,   0,   0]]
+        res = [[0, 'a',   0],
+               [0,   0, 'b'],
+               [0,   0,   0]]
         self.assertEqual(new_nfa.trans_tbl, res)
 
     def test_rep_op1(self):

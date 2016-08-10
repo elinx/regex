@@ -87,7 +87,7 @@ class Parser:
             if term_ast is None:
                 term_ast = factor_ast
             else:
-                term_ast = self.AST((Scanner.CAT, Scanner.CAT), factor_ast, term_ast)
+                term_ast = self.AST((Scanner.CAT, Scanner.CAT), term_ast, factor_ast)
             token = self.peek()
 
         return term_ast
@@ -108,11 +108,6 @@ class Parser:
 
     def parse(self):
         self.ast = self.regex()
-        # print(self.ast)
-
-    def exec(self):
-        nfa = NFABuilder.ast_to_nfa(self.ast)
-        print(nfa)
 
 if __name__ == '__main__':
     scanner = Scanner('(a|b)*abb')
@@ -120,4 +115,6 @@ if __name__ == '__main__':
 
     parser = Parser(scanner.tokens)
     parser.parse()
-    parser.exec()
+
+    nfa = NFABuilder.ast_to_nfa(parser.ast)
+    print(nfa)

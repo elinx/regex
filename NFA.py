@@ -18,21 +18,23 @@ class NFA:
 
     def __repr__(self):
         return 'size: {0} start: {1}, ' \
-               'final: {2}, table: {3}'.format(self.size,
-                                               self.start,
-                                               self.final,
-                                               self.trans_tbl)
+               'final: {2}, transactions:\n {3}'.format(self.size,
+                                                        self.start,
+                                                        self.final,
+                                                        self.display_trans())
 
     def add_trans(self, fm, to, ic):
         self.trans_tbl[fm][to] = ic
 
     def display_trans(self):
+        ret = ''
         for r in range(self.size):
             for c in range(self.size):
                 if self.trans_tbl[r][c] != self.NONE:
                     ic = self.trans_tbl[r][c]
                     ic = ic if ic != self.EPS else "EPS"
-                    print("from {0} to {1} when input is {2}".format(r, c, ic))
+                    ret += "from {0} to {1} when input is {2}".format(r, c, ic) + '\n'
+        return ret
 
     def __rshift__(self, delta):
         if delta <= 0:
@@ -87,15 +89,14 @@ class NFA:
 
     def __and__(self, other):
         """Create a (this other) concat transaction table"""
-        self >>= 1
         other >>= self.size - 1
 
-        new_nfa = NFA(other.size + 1, 0, other.size)
+        new_nfa = NFA(other.size, 0, other.size - 1)
         new_nfa.fill(other)
         new_nfa.fill(self)
 
-        new_nfa.add_trans(0, self.start, self.EPS)
-        new_nfa.add_trans(other.final, new_nfa.final, self.EPS)
+        # new_nfa.add_trans(0, self.start, self.EPS)
+        # new_nfa.add_trans(other.final, new_nfa.final, self.EPS)
 
         return new_nfa
 
