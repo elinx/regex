@@ -115,6 +115,7 @@ if __name__ == '__main__':
 
     parser = Parser(scanner.tokens)
     parser.parse()
+    # print(parser.ast)
 
     nfa = NFABuilder.ast_to_nfa(parser.ast)
-    print(nfa)
+    # print(nfa)
