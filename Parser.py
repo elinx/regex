@@ -1,4 +1,3 @@
-from Scanner import *
 from NFABuilder import *
 
 
