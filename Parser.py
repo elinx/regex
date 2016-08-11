@@ -1,3 +1,4 @@
+from SubsetConstruction import *
 from NFABuilder import *
 
 
@@ -118,3 +119,10 @@ if __name__ == '__main__':
 
     nfa = NFABuilder.ast_to_nfa(parser.ast)
     # print(nfa)
+
+    sctor = SubsetConstruction(nfa)
+    dfa = sctor.build_dfa(scanner.syms())
+
+    res = dfa.match('aaaaabb')
+
+    print(res)

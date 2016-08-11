@@ -19,9 +19,13 @@ class Scanner:
         ('|', ALTER),
         ('.', DOT),
         (' ', WS),
-        ('\t', TAB),
-        ('\n', NL),
         ('\\', BS),
+        ('\t', CHAR),
+        ('\n', CHAR),
+        # ('\d', CHAR),
+        # ('\D', CHAR),
+        # ('\w', CHAR),
+        # ('\W', CHAR),
         ('abcdefghijklmnopqrstuvwxyz'
          'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
          '0123456789', CHAR)
@@ -37,3 +41,9 @@ class Scanner:
                 if w in t[0]:
                     self.tokens.append((w, t[1]))
 
+    def syms(self):
+        res = set()
+        for val, tag in self.tokens:
+            if tag == self.CHAR:
+                res.add(val)
+        return res

@@ -1,4 +1,8 @@
+from DFA import *
+
+
 class SubsetConstruction:
+
     def __init__(self, nfa):
         self.nfa = nfa
 
@@ -20,5 +24,17 @@ class SubsetConstruction:
                     stack.append(i)
         return eps
 
-    def build_dfa(self):
-        pass
+    def build_dfa(self, syms):
+        dfa = DFA()
+        start_set = self.eps_closure_of([self.nfa.start])
+        dfa.start = start_set
+        queue = list()
+        queue.append(start_set)
+
+        while queue:
+            cur_set = queue[0]
+            queue = queue[1:]  # de-queue
+            for c in syms:
+                next_set = self.eps_closure_of(list(self.nfa.move(cur_set, c)))
+                queue.append(next_set)  # enqueue
+                dfa.add_trans(cur_set, next_set, c)

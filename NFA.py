@@ -113,3 +113,17 @@ class NFA:
         new_nfa.add_trans(self.final, self.start, self.EPS)
 
         return new_nfa
+
+    def move(self, cur_set, c):
+        """
+        Simulate NFA to get a set of state when input is a states and input pair
+        :param cur_set: input states
+        :param c: input char
+        :return: all states from input states when input is c
+        """
+        res = set()
+        for state in cur_set:
+            for i in range(self.size):
+                if self.trans_tbl[state][i] == c:
+                    res.add(i)
+        return res
