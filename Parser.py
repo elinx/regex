@@ -122,7 +122,8 @@ if __name__ == '__main__':
 
     sctor = SubsetConstruction(nfa)
     dfa = sctor.build_dfa(scanner.syms())
+    # print(dfa)
 
-    res = dfa.match('aaaaabb')
+    res = dfa.match('abb')
 
     print(res)
